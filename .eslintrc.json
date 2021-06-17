@@ -1,20 +1,31 @@
 {
+    "settings": {
+      "import/resolver": {
+        "typescript": {}
+      },
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts"]
+      }
+    },
     "env": {
-        "es2021": true,
-        "node": true,
-        "jest": true
+      "es2021": true,
+      "node": true,
+      "jest": true
     },
     "extends": [
-        "airbnb-base"
+      "airbnb-base"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 12,
-        "sourceType": "module"
+      "ecmaVersion": 12,
+      "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+      "@typescript-eslint",
+      "import"
     ],
     "rules": {
+      "space-before-function-paren": "error",
+      "no-underscore-dangle": "off"
     }
 }
