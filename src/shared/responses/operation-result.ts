@@ -5,7 +5,7 @@ class OperationResult<TData> {
 
   public data? : TData
 
-  public constructor(success : boolean, message? : string, data? : TData) {
+  public constructor(success : boolean, data? : TData, message? : string) {
     this.success = success;
     this.message = message;
     this.data = data;
