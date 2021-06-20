@@ -22,7 +22,9 @@ const connectionOptions : ConnectionOptions = {
 /**
  * Create TypeOrm connection with the database
  */
-const typeOrmConnectionFactory = () : Promise<Connection> => createConnection(connectionOptions);
+function typeOrmConnectionFactory(options? : ConnectionOptions) : Promise<Connection> {
+  return createConnection(options ?? connectionOptions);
+}
 
 export { typeOrmConnectionFactory };
 
