@@ -11,19 +11,22 @@ class AddPilotUseCase implements AddPilot {
   }
 
   async handle(pilotData: AddPilotParams): Promise<OperationResult<string>> {
-    try {
-      const createPilot = Pilot.create(pilotData);
+    const result = new OperationResult<string>(true);
 
-      if (!createPilot.success) { throw new Error(createPilot.message); }
+    const createPilot = Pilot.create(pilotData);
 
-      const persistPilot = await this._repository.add(createPilot.data);
+    if (!createPilot.success) {
+      result.success = false;
+      result.message = createPilot.message;
 
-      if (!persistPilot) { throw new Error('Error creating pilot'); }
-
-      return new OperationResult<string>(true, 'Pilot successfully created');
-    } catch (error) {
-      return new OperationResult<string>(false, null, error.message);
+      return result;
     }
+
+    const persistPilot = await this._repository.add(createPilot.data);
+
+    if (!persistPilot) { throw new Error('Error creating pilot'); }
+
+    return new OperationResult<string>(true, 'Pilot successfully created');
   }
 }
 
