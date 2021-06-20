@@ -7,6 +7,7 @@ const connectionOptionsTesting : SqliteConnectionOptions = {
   database: 'tests/config/testing-db.sqlite',
   entities: ['src/infra/db/mappings/*.ts'],
   migrations: ['src/infra/db/migrations/*.ts'],
+  busyErrorRetry: 500,
 };
 
 export default connectionOptionsTesting;
