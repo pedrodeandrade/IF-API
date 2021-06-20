@@ -4,8 +4,9 @@ import {
 
 import Pilot from '@/domain/entities/pilot';
 import AddPilotRepository from '@/application/contracts/repositories/pilot/add-pilot-repository';
+import GetPilotRepository from '@/application/contracts/repositories/pilot/get-pilot-repository';
 
-class PilotRepository implements AddPilotRepository {
+class PilotRepository implements AddPilotRepository, GetPilotRepository {
   private readonly _ormRepository : Repository<Pilot>;
 
   public constructor(ormRepository : Repository<Pilot>) {
@@ -21,6 +22,12 @@ class PilotRepository implements AddPilotRepository {
       // TODO Logging
       return false;
     }
+  }
+
+  async get(pilotId: number): Promise<Pilot> {
+    const pilot = await this._ormRepository.findOne(pilotId);
+
+    return pilot || null;
   }
 }
 

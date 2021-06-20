@@ -1,4 +1,6 @@
-import { Connection, ConnectionOptions, createConnection } from 'typeorm';
+import {
+  Connection, ConnectionOptions, createConnection, NamingStrategyInterface,
+} from 'typeorm';
 
 import env from '@/shared/env';
 

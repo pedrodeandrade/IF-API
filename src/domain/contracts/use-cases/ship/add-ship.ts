@@ -5,7 +5,7 @@ type AddShipParams = {
 }
 
 interface AddShip{
-  handle(shipDat : AddShipParams) : Promise<void>;
+  handle(shipData : AddShipParams) : Promise<void>;
 }
 
 export default AddShip;

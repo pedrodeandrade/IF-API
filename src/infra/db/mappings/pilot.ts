@@ -36,6 +36,13 @@ const PilotMapping = new EntitySchema<Pilot>({
       nullable: true,
     },
   },
+  relations: {
+    ships: {
+      type: 'one-to-many',
+      target: 'Ship',
+      inverseSide: 'pilot',
+    },
+  },
 });
 
 export default PilotMapping;

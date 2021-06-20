@@ -24,6 +24,14 @@ function badRequest(message : string): HttpResponse {
   };
 }
 
+function notFound(message : string): HttpResponse {
+  return {
+    success: false,
+    statusCode: 404,
+    body: message,
+  };
+}
+
 function serverError(message: string): HttpResponse {
   return {
     success: false,
@@ -36,5 +44,6 @@ export {
   ok,
   created,
   badRequest,
+  notFound,
   serverError,
 };
