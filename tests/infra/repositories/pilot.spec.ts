@@ -7,9 +7,13 @@ import { typeOrmConnectionFactory } from '@/infra/db/config';
 import PilotMapping from '@/infra/db/mappings/pilot';
 import PilotRepository from '@/infra/db/repositories/pilot';
 
+import DbConnectionOptionsTesting from '@/tests/config/db/connection';
+
 describe('PilotRepository', () => {
   beforeAll(async () => {
-    await typeOrmConnectionFactory();
+    await typeOrmConnectionFactory(DbConnectionOptionsTesting);
+
+    await getConnection().synchronize(true);
   });
   afterAll(async () => {
     await getConnection().close();
