@@ -3,8 +3,8 @@ import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionO
 const connectionOptionsTesting : SqliteConnectionOptions = {
   type: 'sqlite',
   logger: 'advanced-console',
-  logging: true,
-  database: 'tests/configs/in-memory-db.sqlite',
+  logging: false,
+  database: 'tests/config/testing-db.sqlite',
   entities: ['src/infra/db/mappings/*.ts'],
   migrations: ['src/infra/db/migrations/*.ts'],
 };
