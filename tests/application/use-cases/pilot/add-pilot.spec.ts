@@ -49,10 +49,10 @@ describe('AddPilot UseCase', () => {
 
     repository.setResult(false);
 
-    expect(sut.handle({
+    await expect(sut.handle({
       age: 18,
       name: 'Pedro',
       certification: '1234567',
-    })).rejects.toMatch('error');
+    })).rejects.toThrow();
   });
 });

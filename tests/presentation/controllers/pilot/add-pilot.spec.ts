@@ -67,14 +67,13 @@ describe(('AddPilot Controller'), () => {
   test('it should return 500 if AddPilot throws', async () => {
     const { sut, useCase } = makeSut();
 
-    useCase.handle = async () => {
-      throw new Error('Server crashed');
-    };
+    useCase.handle = jest.fn().mockImplementationOnce(() => {
+      throw new Error();
+    });
 
-    const result = await sut.handle(requestData);
-
-    expect(result.statusCode).toStrictEqual(500);
-    expect(result.success).toBeFalsy();
-    expect(result.body).toStrictEqual('Server crashed');
+    await expect(sut.handle(requestData)).resolves.toMatchObject({
+      statusCode: 500,
+      success: false,
+    });
   });
 });
