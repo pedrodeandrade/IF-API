@@ -2,8 +2,14 @@ import AddPilotRepository from '@/application/contracts/repositories/pilot/add-p
 import Pilot from '@/domain/entities/pilot';
 
 class AddPilotRepositoryMock implements AddPilotRepository {
+  private result : boolean;
+
   async add(pilot: Pilot): Promise<boolean> {
-    return true;
+    return this.result;
+  }
+
+  setResult(result : boolean) : void {
+    this.result = result;
   }
 }
 
