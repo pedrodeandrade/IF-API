@@ -61,10 +61,6 @@ describe('AddShip use case', () => {
       weightCapacity: 10,
     };
 
-    try {
-      await sut.handle(shipData);
-    } catch (error) {
-      expect(error).toBeInstanceOf(NotFoundError);
-    }
+    await expect(sut.handle(shipData)).rejects.toThrow(NotFoundError);
   });
 });
