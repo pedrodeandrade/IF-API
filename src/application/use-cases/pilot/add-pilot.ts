@@ -1,6 +1,6 @@
 import AddPilotRepository from '@/application/contracts/repositories/pilot/add-pilot-repository';
 import Pilot from '@/domain/entities/pilot';
-import AddPilot, { AddPilotParams } from '@/domain/use-cases/pilot/add-pilot';
+import AddPilot, { AddPilotParams } from '@/domain/contracts/use-cases/pilot/add-pilot';
 import OperationResult from '@/shared/responses/operation-result';
 
 class AddPilotUseCase implements AddPilot {

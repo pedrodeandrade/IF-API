@@ -6,7 +6,7 @@ type AddPilotParams = {
   age : number
 }
 
-interface AddPilot {
+interface AddPilot{
   handle(pilotData : AddPilotParams) : Promise<OperationResult<string>>;
 }
 
