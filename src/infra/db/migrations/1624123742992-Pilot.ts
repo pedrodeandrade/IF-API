@@ -39,7 +39,7 @@ export class Pilot1624123742992 implements MigrationInterface {
           isNullable: true,
         },
       ],
-    }));
+    }), true);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
