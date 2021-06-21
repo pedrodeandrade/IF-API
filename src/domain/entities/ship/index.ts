@@ -4,7 +4,8 @@ type CreateShipData = {
   id? : number,
   fuelCapacity : number,
   weightCapacity: number,
-  pilot : Pilot
+  pilot : Pilot,
+  fuelLevel?: number
 };
 
 class Ship {
@@ -23,7 +24,11 @@ class Ship {
   }
 
   set fuelLevel(value : number) {
-    this._fuelLevel = value < 0 ? 0 : value;
+    let fuelLevelValue = value > this.fuelCapacity ? this.fuelCapacity : value;
+
+    if (fuelLevelValue < 0) { fuelLevelValue = 0; }
+
+    this._fuelLevel = fuelLevelValue;
   }
 
   public constructor(shipData : CreateShipData) {
@@ -31,7 +36,7 @@ class Ship {
 
     this.fuelCapacity = shipData.fuelCapacity < 0 ? 0 : shipData.fuelCapacity;
 
-    this.fuelLevel = 100;
+    this.fuelLevel = shipData.fuelLevel || 0;
 
     this.weightCapacity = shipData.weightCapacity < 0 ? 0 : shipData.weightCapacity;
 
