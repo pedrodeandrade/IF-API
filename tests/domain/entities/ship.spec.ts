@@ -18,7 +18,7 @@ describe('Ship', () => {
     expect(ship.fuelCapacity).toStrictEqual(10);
     expect(ship.pilot).toStrictEqual(mockPilot);
     expect(ship.weightCapacity).toStrictEqual(15);
-    expect(ship.fuelLevel).toStrictEqual(100);
+    expect(ship.fuelLevel).toStrictEqual(0);
   });
 
   test('it should create a ship with weightCapacity equal 0 if negative value is passed to it', () => {
