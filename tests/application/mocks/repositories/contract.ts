@@ -28,6 +28,8 @@ class ListOpenContractsRepositoryMock implements ListOpenContractsRepository {
 class GetContractRepositoryMock implements GetContractRepository {
   private _contractStatus : ContractStatus
 
+  private _value : number;
+
   public contract : Contract;
 
   async get(id: number): Promise<Contract> {
@@ -36,7 +38,7 @@ class GetContractRepositoryMock implements GetContractRepository {
       description: 'travel',
       originPlanet: Planets.Aqua,
       destinationPlanet: Planets.Andvari,
-      value: 10,
+      value: this._value || 10,
       status: this._contractStatus || ContractStatus.Open,
     });
 
@@ -45,6 +47,10 @@ class GetContractRepositoryMock implements GetContractRepository {
 
   public setContractStatus(value: ContractStatus) : void {
     this._contractStatus = value;
+  }
+
+  public setContractValue(value: number) : void {
+    this._value = value;
   }
 }
 
