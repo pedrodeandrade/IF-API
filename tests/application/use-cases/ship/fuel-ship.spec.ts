@@ -4,6 +4,7 @@ import { UpdatePilotRepositoryMock } from '@/tests/application/mocks/repositorie
 import { GetShipRepositoryMock, UpdateShipRepositoryMock } from '@/tests/application/mocks/repositories/ship';
 import NotFoundError from '@/shared/errors/not-found-error';
 import BusinessError from '@/shared/errors/business-error';
+import Planets from '@/domain/enums/planet';
 
 type SutTypes = {
   sut: FuelShipUseCase,
@@ -43,6 +44,7 @@ describe('FuelShip use case', () => {
   test('it should call repository spies with correct values', async () => {
     const pilot = mockPilot();
     pilot.credits = 1000;
+    pilot.locationPlanet = Planets.Aqua;
 
     const {
       sut,
@@ -72,6 +74,24 @@ describe('FuelShip use case', () => {
   test('it should throw if pilot does not have enough credits to pay the fuel', async () => {
     const pilot = mockPilot();
     pilot.credits = 0;
+    pilot.locationPlanet = Planets.Aqua;
+
+    const {
+      sut,
+      getShipRepository,
+    } = makeSut();
+
+    getShipRepository.setPilot(pilot);
+    getShipRepository.setFuelLevel(0);
+
+    const sutData = { shipId: 1, fuelAmount: 10 };
+
+    await expect(sut.handle(sutData)).rejects.toThrow(BusinessError);
+  });
+
+  test('it should throw if pilot is not in a planet', async () => {
+    const pilot = mockPilot();
+    pilot.credits = 100000;
 
     const {
       sut,
@@ -89,6 +109,7 @@ describe('FuelShip use case', () => {
   test('ship fuelLevel should be equal fuelCapacity if a value bigger than fuelCapacity is given to fuel the ship', async () => {
     const pilot = mockPilot();
     pilot.credits = 1000;
+    pilot.locationPlanet = Planets.Aqua;
 
     const {
       sut,
@@ -112,6 +133,7 @@ describe('FuelShip use case', () => {
   test('pilot credits should be charged correctly if a value bigger than fuelCapacity is given to fuel the ship', async () => {
     const pilot = mockPilot();
     pilot.credits = 70;
+    pilot.locationPlanet = Planets.Aqua;
 
     const {
       sut,
@@ -131,6 +153,7 @@ describe('FuelShip use case', () => {
   test('ship fuelLevel should be equals fuelLevel + fuelAmount if fuelAmount is less or equals fuel capacity', async () => {
     const pilot = mockPilot();
     pilot.credits = 1000;
+    pilot.locationPlanet = Planets.Aqua;
 
     const {
       sut,
