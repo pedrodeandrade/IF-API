@@ -107,4 +107,31 @@ describe('PilotRepository', () => {
       expect(pilotFromDb).toBeNull();
     });
   });
+
+  describe('update()', () => {
+    const makeSut = () : PilotRepository => {
+      const typeOrmRepository = getRepository<Pilot>(PilotMapping);
+
+      const sut = new PilotRepository(typeOrmRepository);
+
+      return sut;
+    };
+
+    test('it should update a pilot', async () => {
+      const sut = makeSut();
+
+      const pilot = Pilot.create(pilotData);
+
+      await sut.add(pilot.data);
+
+      const pilotToUpdate = Pilot.create({ ...pilotData, id: pilot.data.id, name: 'Zézinho da silva' }).data;
+
+      await sut.update(pilotToUpdate);
+
+      const pilotFromDb = await sut.get(pilotToUpdate.id);
+
+      expect(pilotFromDb.id).toStrictEqual(pilotToUpdate.id);
+      expect(pilotFromDb.name).toStrictEqual(pilotToUpdate.name);
+    });
+  });
 });
