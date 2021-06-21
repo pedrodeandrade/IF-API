@@ -18,7 +18,7 @@ class Pilot {
 
   public readonly name :string;
 
-  public readonly locationPlanet : Planets;
+  public locationPlanet : Planets;
 
   public readonly certification : string;
 
