@@ -4,10 +4,10 @@ const connectionOptionsTesting : SqliteConnectionOptions = {
   type: 'sqlite',
   logger: 'advanced-console',
   logging: false,
-  database: 'tests/config/testing-db.sqlite',
+  database: ':memory:',
   entities: ['src/infra/db/mappings/*.ts'],
+  dropSchema: true,
   migrations: ['src/infra/db/migrations/*.ts'],
-  busyErrorRetry: 500,
 };
 
 export default connectionOptionsTesting;
