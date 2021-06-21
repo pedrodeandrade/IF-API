@@ -7,6 +7,7 @@ import { typeOrmConnectionFactory } from '@/infra/db/config';
 import Pilot from '@/domain/entities/pilot';
 import ShipRepository from '@/infra/db/repositories/ship';
 import PilotMapping from '@/infra/db/mappings/pilot';
+import { mockPilot } from '@/tests/domain/entities/mocks/pilot';
 
 describe('Ship repository', () => {
   beforeAll(async () => {
@@ -40,15 +41,6 @@ describe('Ship repository', () => {
     };
   }
 
-  function mockPilot() : Pilot {
-    return Pilot.create({
-      age: 21,
-      certification: '1234567',
-      name: 'Pedro',
-      id: 1,
-    }).data;
-  }
-
   describe('add()', () => {
     test('it should create a ship', async () => {
       const { sut, ormRepository } = makeSut();
@@ -72,10 +64,10 @@ describe('Ship repository', () => {
       expect(shipFromDb.pilot.name).toStrictEqual(shipPilot.name);
     });
 
-    test('it should throws if ormRepository fails to insert a ship', () => {
+    test('it should throws if ormRepository fails to insert a ship', async () => {
       const { sut, ormRepository } = makeSut();
 
-      ormRepository.insert = jest.fn().mockImplementationOnce(() => {
+      jest.spyOn(ormRepository, 'insert').mockImplementationOnce(() => {
         throw new Error();
       });
 
@@ -87,7 +79,70 @@ describe('Ship repository', () => {
       };
       const ship = new Ship(shipData);
 
-      expect(() => sut.add(ship)).rejects.toThrow();
+      await expect(sut.add(ship)).rejects.toThrow();
+    });
+  });
+
+  describe('get()', () => {
+    test('it should return a ship', async () => {
+      const { sut } = makeSut();
+
+      const shipPilot = mockPilot();
+      await getRepository<Pilot>(PilotMapping).insert(shipPilot);
+
+      const shipData = {
+        fuelCapacity: 10,
+        weightCapacity: 10,
+        pilot: shipPilot,
+        id: 1,
+      };
+      const ship = new Ship(shipData);
+
+      await sut.add(ship);
+
+      const shipFromDb = await sut.get(ship.id);
+
+      expect(shipFromDb.id).toStrictEqual(ship.id);
+    });
+
+    test('it should return null if ship does not exists', async () => {
+      const { sut } = makeSut();
+
+      const shipFromDb = await sut.get(Number.MAX_SAFE_INTEGER);
+
+      expect(shipFromDb).toStrictEqual(null);
+    });
+  });
+
+  describe('update()', () => {
+    test('it should update a ship', async () => {
+      const { sut } = makeSut();
+
+      const shipPilot = mockPilot();
+      await getRepository<Pilot>(PilotMapping).insert(shipPilot);
+
+      const shipData = {
+        fuelCapacity: 10,
+        weightCapacity: 10,
+        pilot: shipPilot,
+        id: 1,
+      };
+      const ship = new Ship(shipData);
+
+      await sut.add(ship);
+
+      const shipToUpdate = new Ship({
+        ...shipData,
+        fuelCapacity: 100000,
+        id: ship.id,
+      });
+
+      await sut.update(shipToUpdate);
+
+      const shipFromDb = await sut.get(ship.id);
+
+      expect(shipFromDb.id).toStrictEqual(shipToUpdate.id);
+      expect(shipFromDb.fuelCapacity).toStrictEqual(shipToUpdate.fuelCapacity);
     });
   });
 });
