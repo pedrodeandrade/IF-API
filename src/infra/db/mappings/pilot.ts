@@ -42,6 +42,11 @@ const PilotMapping = new EntitySchema<Pilot>({
       target: 'Ship',
       inverseSide: 'pilot',
     },
+    contracts: {
+      type: 'one-to-many',
+      target: 'Contract',
+      inverseSide: 'pilot',
+    },
   },
 });
 
