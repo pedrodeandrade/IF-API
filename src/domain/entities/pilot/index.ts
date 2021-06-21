@@ -1,6 +1,7 @@
 import Planets from '@/domain/enums/planet';
 import OperationResult from '@/shared/responses/operation-result';
 import Ship from '@/domain/entities/ship';
+import Contract from '@/domain/entities/contract';
 
 type CreatePilotData = {
   id? : number;
@@ -24,6 +25,8 @@ class Pilot {
   public readonly age : number;
 
   public ships : Ship[]
+
+  public contracts : Contract[]
 
   private _credits : number;
 
