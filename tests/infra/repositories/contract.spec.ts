@@ -91,4 +91,49 @@ describe('Contract repository', () => {
       expect(openContracts.length).toStrictEqual(0);
     });
   });
+
+  describe('get()', () => {
+    test('it should return a contract', async () => {
+      const { sut } = makeSut();
+
+      const contract = mockContract();
+
+      await sut.publish(contract);
+
+      const contractFromDb = await sut.get(contract.id);
+
+      expect(contractFromDb.id).toStrictEqual(contract.id);
+      expect(contractFromDb.originPlanet).toStrictEqual(contract.originPlanet);
+    });
+
+    test('it should return null if contract does not exists', async () => {
+      const { sut } = makeSut();
+
+      const contract = await sut.get(Number.MAX_SAFE_INTEGER);
+
+      expect(contract).toStrictEqual(null);
+    });
+  });
+
+  describe('update()', () => {
+    test('it should update a contract', async () => {
+      const { sut } = makeSut();
+
+      const contract = mockContract();
+      contract.status = ContractStatus.Open;
+
+      await sut.publish(contract);
+
+      const contractStatusBeforeUpdate = contract.status;
+
+      contract.status = ContractStatus.InExecution;
+
+      await sut.update(contract);
+
+      const contractFromDb = await sut.get(contract.id);
+
+      expect(contract.status).toEqual(Number(contractFromDb.status));
+      expect(contractStatusBeforeUpdate).not.toEqual(contractFromDb.status);
+    });
+  });
 });
