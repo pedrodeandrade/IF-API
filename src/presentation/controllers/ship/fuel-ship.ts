@@ -28,4 +28,6 @@ class FuelShipController implements Controller<FuelShipRequestData> {
   }
 }
 
+export { FuelShipRequestData };
+
 export default FuelShipController;
