@@ -36,6 +36,8 @@ class FuelShipUseCase implements FuelShip {
       fuelCost,
     } = this.calculateFuelCost(ship.fuelLevel, ship.fuelCapacity, params.fuelAmount);
 
+    if (ship.pilot.locationPlanet == null) { throw new BusinessError('Pilot need to be in a planet in order to fuel the ship'); }
+
     if (ship.pilot.credits < fuelCost) { throw new BusinessError('Pilot do not have enough credits to fuel the ship'); }
 
     ship.fuelLevel += amountToFuel;
