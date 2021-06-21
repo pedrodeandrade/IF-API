@@ -1,6 +1,6 @@
-/* eslint-disable max-classes-per-file */
 import AddPilotRepository from '@/application/contracts/repositories/pilot/add-pilot-repository';
 import GetPilotRepository from '@/application/contracts/repositories/pilot/get-pilot-repository';
+import UpdatePilotRepository from '@/application/contracts/repositories/pilot/update-pilot-repository';
 import Pilot from '@/domain/entities/pilot';
 
 class AddPilotRepositoryMock implements AddPilotRepository {
@@ -26,7 +26,15 @@ class GetPilotRepositoryMock implements GetPilotRepository {
   }
 }
 
+class UpdatePilotRepositoryMock implements UpdatePilotRepository {
+  async update(pilot: Pilot): Promise<void> {
+    // eslint-disable-next-line no-useless-return
+    return;
+  }
+}
+
 export {
   AddPilotRepositoryMock,
   GetPilotRepositoryMock,
+  UpdatePilotRepositoryMock,
 };
