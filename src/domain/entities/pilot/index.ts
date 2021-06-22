@@ -49,7 +49,7 @@ class Pilot {
     this.name = pilotData.name;
     this.age = pilotData.age;
     this.certification = pilotData.certification;
-    this.credits = 0;
+    this.credits = 100;
   }
 
   public static create(pilotData : CreatePilotData) : OperationResult<Pilot> {
