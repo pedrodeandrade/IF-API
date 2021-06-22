@@ -13,7 +13,7 @@ const connectionOptions : ConnectionOptions = {
   database: env.dbName,
   entities: ['src/infra/db/mappings/*.ts'],
   migrations: ['src/infra/db/migrations/*.ts'],
-  logging: process.env.NODE_ENV === 'development' ? ['query', 'error'] : false,
+  logging: false,
   logger: 'advanced-console',
   synchronize: false,
 };
