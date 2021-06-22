@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "ts-node -r tsconfig-paths/register --transpile-only src/main/server.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/main/server.ts",
     "test": "jest",
     "migration:run": "ts-node -r tsconfig-paths/register --transpile-only ./node_modules/typeorm/cli.js migration:run --config src/infra/db/config/index.ts",
