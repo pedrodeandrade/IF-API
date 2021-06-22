@@ -23,6 +23,7 @@ class AddShipUseCase implements AddShip {
       fuelCapacity: shipData.fuelCapacity,
       pilot,
       weightCapacity: shipData.weightCapacity,
+      fuelLevel: shipData.fuelCapacity,
     });
 
     await this._shipRepository.add(ship);
