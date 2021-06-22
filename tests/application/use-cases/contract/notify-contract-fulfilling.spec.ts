@@ -111,7 +111,7 @@ describe('NotifyContractFulfilling use case', () => {
       contractId: 1,
     };
 
-    const pilotCreditsBeforeContractFulfilling = 0;
+    const pilotCreditsBeforeContractFulfilling = 100;
     const contractValue = 15;
 
     getPilotRepository.setPilotPlanet(Planets.Andvari);

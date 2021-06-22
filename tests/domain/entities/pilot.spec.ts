@@ -11,7 +11,7 @@ describe('Pilot', () => {
     expect(createNewPilot.success).toStrictEqual(true);
     expect(createNewPilot.data.name).toStrictEqual('Pedro');
     expect(createNewPilot.data.id).toStrictEqual(0);
-    expect(createNewPilot.data.credits).toStrictEqual(0);
+    expect(createNewPilot.data.credits).toStrictEqual(100);
     expect(createNewPilot.data).toBeInstanceOf(Pilot);
   });
 

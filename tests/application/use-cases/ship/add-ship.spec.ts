@@ -45,6 +45,7 @@ describe('AddShip use case', () => {
       weightCapacity: shipData.weightCapacity,
       pilot,
     });
+    ship.fuelLevel = shipData.fuelCapacity;
 
     expect(addShipRepositorySpy).toHaveBeenCalledTimes(1);
     expect(addShipRepositorySpy).toHaveBeenCalledWith(ship);
